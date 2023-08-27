@@ -27,6 +27,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'com.opencsv:opencsv:5.5.2'
+	implementation 'org.xhtmlrenderer:flying-saucer-pdf:9.1.22'
+	implementation 'ognl:ognl:3.4.0'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'

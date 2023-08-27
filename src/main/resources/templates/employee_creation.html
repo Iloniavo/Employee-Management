@@ -52,7 +52,10 @@
             <input required id="childrenNumber" type="number" min="0" name="childrenNumber" th:field="*{childrenNumber}"
                    class="form-control">
         </div>
-
+        <div class="col-lg-4 col-md-6">
+            <label for="salary" class="form-label">Salary</label>
+            <input required id="salary" name="firstName" th:field="*{grossSalary}" type="text" class="form-control">
+        </div>
         <div class="col-lg-4 col-md-6">
             <label for="birthDate" class="form-label">Birthdate</label>
             <input required id="birthDate" name="birthDate" th:field="*{birthDate}" type="date" class="form-control">

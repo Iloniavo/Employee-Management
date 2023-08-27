@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            margin-bottom: 500px;
+        }
+
+        .employee-card{
+            width: 100%;
+            position: relative;
+            height: 300px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .employee-img {
+            height: 220px;
+            width: 220px;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+
+        .company-logo {
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .employee-details {
+            position: absolute;
+            top: 0;
+            right: 50px;
+        }
+
+        footer {
+            border-top: 2px solid black;
+            position: absolute;
+            bottom: 100px;
+            left: 0;
+            width: 100%;
+            padding-top: 10px;
+        }
+
+        .company-details {
+            position: absolute;
+            top: 0;
+            left: 30%;
+        }
+
+        .contact-details {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .footer-content div p {
+            padding-bottom: 20px;
+        }
+
+        .footer-content {
+            position: relative;
+            width: 100%;
+        }
+        .employee-details p {
+            padding-bottom: 10px;
+        }
+
+    </style>
+    <title>PDF</title>
+</head>
+<body>
+
+<div class="employee-card">
+    <img class="employee-img" th:src="${employee.stringImage}" alt="no image"/>
+    <div class="employee-details">
+        <h2>FICHE EMPLOYE</h2>
+        <p>Numero matricule: <span th:text="${employee.registrationNumber}"></span></p>
+        <p>Noms: <span th:text="${employee.lastName}"></span></p>
+        <p>Prenom: <span th:text="${employee.firstName}"></span></p>
+        <p>Age: <span th:text="${employee.age}"></span></p>
+        <p>Date d'embauche: <span th:text="${employee.entranceDate}"></span></p>
+        <p>Date de depart: <span th:text="${employee.departureDate}"></span></p>
+        <p>Numero CNAPS: <span th:text="${employee.cnaps}"></span></p>
+    </div>
+</div>
+
+<div class="salary-info">
+    <p>Information sur le salaire</p>
+    <p>Salaire brute actuel: <span th:text="${employee.grossSalary}"></span> Ariary / Month</p>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <img class="company-logo" th:src="${companyConf.logo}" alt="no image" src="#"/>
+        <div class="company-details">
+            <p>Company: <span th:text="${companyConf.name}"></span></p>
+            <p>NIF: <span th:text="${companyConf.taxIdentity.nif}"></span></p>
+            <p>STAT: <span th:text="${companyConf.taxIdentity.stat}"></span></p>
+        </div>
+
+        <div class="contact-details">
+            <p>Address: <span th:text="${companyConf.address}"></span></p>
+            <div>
+                <span>Phone : </span>
+                <span th:each="phone : ${companyConf.phones}">
+                    <span th:text="${phone.value}"></span>
+                </span>
+            </div>
+            <p>Email: <span th:text="${companyConf.email}"></span></p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -27,6 +27,10 @@
         <p th:text="*{employee.address}" class="form-control show-fields" id="inputAddress"></p>
     </div>
     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="age" class="form-label text-black-50">Age</label>
+        <p th:text="${employee.age}" id="age" class="form-control show-fields"></p>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
         <label for="personalEmail" class="form-label text-black-50">Personal email</label>
         <p id="personalEmail" th:text="*{employee.personalEmail}" type="text"
            class="form-control show-fields"></p>
@@ -49,7 +53,12 @@
         <p id="childrenNumber" type="number" th:text="*{employee.childrenNumber}"
            class="form-control show-fields"></p>
     </div>
-
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="salary" class="form-label text-black-50">Salary</label>
+        <div id="salary" th:each="position : ${employee.grossSalary}">
+            <p th:text="${employee.grossSalary}" class="form-control show-fields"></p>
+        </div>
+    </div>
     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
         <label for="birthDate" class="form-label text-black-50">Birthdate</label>
         <p id="birthDate" th:text="*{employee.birthDate}" type="date" class="form-control show-fields"></p>
@@ -84,6 +93,10 @@
             <p th:text="${position.name}" class="form-control show-fields"></p>
         </div>
     </div>
+    <a th:href="'/server/employee/pdf/download/' + *{employee.id}">
+        <button class="btn btn-primary">Download to pdf</button>
+    </a>
+
 </div>
 
 <footer th:replace="~{components/navbar.html :: footer}"></footer>

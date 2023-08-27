@@ -43,6 +43,10 @@ public class Employee implements Serializable {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate departureDate;
 
+    private int grossSalary;
+    private int age;
+
+
     private List<Position> positions;
     private List<Phone> phones;
 }
