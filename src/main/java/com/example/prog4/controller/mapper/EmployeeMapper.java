@@ -1,6 +1,7 @@
 package com.example.prog4.controller.mapper;
 
 import com.example.prog4.model.Employee;
+import com.example.prog4.model.enums.AgeOption;
 import com.example.prog4.model.exception.BadRequestException;
 import com.example.prog4.repository.PositionRepository;
 import com.example.prog4.repository.entity.Phone;
@@ -74,12 +75,7 @@ public class EmployeeMapper {
         }
     }
 
-    public Employee toView(com.example.prog4.repository.entity.Employee employee) {
-        LocalDate currentDate = LocalDate.now();
-//        LocalDate currentDate = LocalDate.of(2023, 5, 7);
-        LocalDate birthDate = employee.getBirthDate();
-        int age = Period.between(birthDate, currentDate).getYears();
-
+    public Employee toView(com.example.prog4.repository.entity.Employee employee, AgeOption ageOption) {
         return Employee.builder()
                 .id(employee.getId())
                 .firstName(employee.getFirstName())
@@ -104,7 +100,20 @@ public class EmployeeMapper {
                 .phones(employee.getPhones().stream().map(phoneMapper::toView).toList())
                 .positions(employee.getPositions())
                 .grossSalary(employee.getGrossSalary())
-                .age(age)
+                .age(ageOption == AgeOption.one ? option1(employee.getBirthDate()) : option2(employee.getBirthDate()))
                 .build();
+    }
+
+    //Option 1
+    public Integer option1(LocalDate birthdate){
+        LocalDate currentDate = LocalDate.now();
+        return Period.between(birthdate, currentDate).getYears();
+    }
+
+    //Option 2
+    public Integer option2(LocalDate birthdate){
+        Integer currentYear = LocalDate.now().getYear();
+        Integer birthdateYear = birthdate.getYear();
+        return currentYear - birthdateYear;
     }
 }

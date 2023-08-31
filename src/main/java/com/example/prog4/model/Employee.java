@@ -3,6 +3,8 @@ package com.example.prog4.model;
 import com.example.prog4.repository.entity.Position;
 import com.example.prog4.repository.entity.enums.Csp;
 import com.example.prog4.repository.entity.enums.Sex;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -44,9 +46,16 @@ public class Employee implements Serializable {
     private LocalDate departureDate;
 
     private int grossSalary;
-    private int age;
+    private Integer age;
 
 
     private List<Position> positions;
     private List<Phone> phones;
+
+    @Enumerated(EnumType.STRING)
+    private AgeOption ageOption;
+
+    public enum AgeOption{
+        one, two
+    }
 }

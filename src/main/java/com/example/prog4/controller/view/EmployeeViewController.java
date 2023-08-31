@@ -4,6 +4,8 @@ import com.example.prog4.controller.PopulateController;
 import com.example.prog4.controller.mapper.EmployeeMapper;
 import com.example.prog4.model.Employee;
 import com.example.prog4.model.EmployeeFilter;
+import com.example.prog4.model.enums.AgeOption;
+import com.example.prog4.repository.entity.Session;
 import com.example.prog4.service.EmployeeService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -28,7 +30,7 @@ public class EmployeeViewController extends PopulateController {
             Model model,
             HttpSession session
     ) {
-        model.addAttribute("employees", employeeService.getAll(filters).stream().map(employeeMapper::toView).toList())
+        model.addAttribute("employees", employeeService.getAll(filters).stream().map(employee -> employeeMapper.toView(employee, AgeOption.one)).toList())
                 .addAttribute("employeeFilters", filters)
                 .addAttribute("directions", Sort.Direction.values());
         session.setAttribute("employeeFiltersSession", filters);
@@ -44,15 +46,15 @@ public class EmployeeViewController extends PopulateController {
 
     @GetMapping("/edit/{eId}")
     public String editEmployee(@PathVariable String eId, Model model) {
-        Employee toEdit = employeeMapper.toView(employeeService.getOne(eId));
+        Employee toEdit = employeeMapper.toView(employeeService.getOne(eId), AgeOption.one);
         model.addAttribute("employee", toEdit);
 
         return "employee_edition";
     }
 
     @GetMapping("/show/{eId}")
-    public String showEmployee(@PathVariable String eId, Model model) {
-        Employee toShow = employeeMapper.toView(employeeService.getOne(eId));
+    public String showEmployee(@PathVariable String eId, Model model, HttpSession session) {
+        Employee toShow = employeeMapper.toView(employeeService.getOne(eId), AgeOption.one);
         model.addAttribute("employee", toShow);
 
         return "employee_show";

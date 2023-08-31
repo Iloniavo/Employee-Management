@@ -31,6 +31,14 @@
         <p th:text="${employee.age}" id="age" class="form-control show-fields"></p>
     </div>
     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="ageOption" class="form-label text-black-50">Age option</label>
+        <select id="ageOption" name="ageOption" class="form-select" th:field="*{employee.ageOption}">
+            <option selected value="">Age option</option>
+            <option th:each="ageOption : ${T(com.example.prog4.model.enums.AgeOption).values()}" th:value="${ageOption}"
+                    th:text="${ageOption}"></option>
+        </select>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
         <label for="personalEmail" class="form-label text-black-50">Personal email</label>
         <p id="personalEmail" th:text="*{employee.personalEmail}" type="text"
            class="form-control show-fields"></p>
@@ -93,8 +101,11 @@
             <p th:text="${position.name}" class="form-control show-fields"></p>
         </div>
     </div>
-    <a th:href="'/server/employee/pdf/download/' + *{employee.id}">
-        <button class="btn btn-primary">Download to pdf</button>
+    <a th:href="'/server/employee/pdf/download/' + *{employee.id}+'/one'">
+        <button class="btn btn-primary">Download to pdf age option 1</button>
+    </a>
+    <a th:href="'/server/employee/pdf/download/' + *{employee.id} +'/two'">
+        <button class="btn btn-primary">Download to pdf age option 2</button>
     </a>
 
 </div>
